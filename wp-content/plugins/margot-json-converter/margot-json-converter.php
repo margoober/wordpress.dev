@@ -10,6 +10,7 @@
 
 
 
+
    $posts = file_get_contents('local-json-file.php');
    $posts = json_decode($posts, true);
 
