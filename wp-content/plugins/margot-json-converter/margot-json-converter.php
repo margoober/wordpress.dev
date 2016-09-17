@@ -9,15 +9,30 @@
    */
 
 
+	function wporg_shortcodes_init()
+	{
+		function wporg_shortcode($atts = [], $content = null)
+		{
+	        // do something to $content
+	 
+	        // always return
+	        echo "shortcode ran! ring the bells";;
+	        return $content;
+	    }
+	    add_shortcode('wporg', 'wporg_shortcode');
+	}
+	add_action('init', 'wporg_shortcodes_init');
+
 
 
    $posts = file_get_contents('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
    //NOTE: Why did I have to include the entire path name?
    $posts = json_decode($posts, true);
 
-   foreach ($posts as $post) {
-   	print_r($post['title'] . PHP_EOL . $post['content']);
-   }
+//foreach through the posts and titles
+   // foreach ($posts as $post) {
+   // 	print_r($post['title'] . PHP_EOL . $post['content']);
+   // }
 
    // print_r($posts[0]["title"]);
 
