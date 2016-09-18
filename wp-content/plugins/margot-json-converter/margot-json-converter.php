@@ -21,7 +21,9 @@
 			$posts = json_decode($posts, true);
 			$i = 0; //counter
 			$limit = $atts['limit'];
-			foreach ($posts as $post) {
+			$category = $atts['category'];
+			print_r("Category: " . $category . PHP_EOL);
+			foreach ($posts as $post) if ($post['terms']['category'][0]['slug'] == $category) {
 				print_r("post number " . ($i + 1) . PHP_EOL);
 				print_r($post['title'] . PHP_EOL . $post['content']);
 				if (++$i == $limit) {
