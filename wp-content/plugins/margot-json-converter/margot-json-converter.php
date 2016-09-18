@@ -22,13 +22,10 @@
 		$jsonManipulation->set_category('news');
 
 		//glean & stringify json from endpoint
-		$jsonString = file_get_contents($jsonManipulation->endpoint);
-		$jsonArray = json_decode($jsonString, true);
-   		print_r("shortcode ran");
-   		var_dump($jsonManipulation);
-
+		$jsonArray = $jsonManipulation->get_contents('https://mind.sh/are/wp-json/posts');
    		//foreach through the posts? set counter? move this to the class?
    		$counter = 0; //counter
+   		//foreach
    		foreach ($jsonArray as $post) if ($post['terms']['category'][0]['slug'] == $jsonManipulation->category) {
    			print_r("post number " . ($counter + 1) . PHP_EOL);
    			print_r($post['title'] . PHP_EOL . $post['content']);
@@ -48,20 +45,6 @@
    // print_r($posts[0]["title"]);
 
 
-   // CURL ATTEMPT WORKS BUT PERMISSION STILL DENIED
-	// function file_get_contents_curl($url) {
-	//     $ch = curl_init();
-
-	//     curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
-	//     curl_setopt($ch, CURLOPT_HEADER, 0);
-	//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	//     curl_setopt($ch, CURLOPT_URL, $url);
-	//     //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);       
-
-	//     $data = curl_exec($ch);
-	//     curl_close($ch);
-
-	//     print_r($data);
 	// }
 	
 	// file_get_contents_curl("/local-json-file.php");
