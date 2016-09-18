@@ -7,36 +7,41 @@
    Author URI: http://margot.dog
    License: GPL2
    */
+   include 'class-library.php';
 
-//shorcode test
-	function shortcode_init()
-	{
-		function json_converter_shortcode($atts = [], $posts = null)
-		{
-			//normalizing attributes:
-			$atts = array_change_key_case((array)$atts, CASE_LOWER);
+   //instantiate shortcode class
+   $shortcode = new shortcode();
 
-			$posts = file_get_contents('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
-			//NOTE: Why did I have to include the entire path name?
-			$posts = json_decode($posts, true);
-			$i = 0; //counter
-			$limit = $atts['limit'];
-			$category = $atts['category'];
-			print_r("Category: " . $category . PHP_EOL);
-			foreach ($posts as $post) if ($post['terms']['category'][0]['slug'] == $category) {
-				print_r("post number " . ($i + 1) . PHP_EOL);
-				print_r($post['title'] . PHP_EOL . $post['content']);
-				if (++$i == $limit) {
-					break;
-				}
-			}
-	        // // do something to $content
-	        // // always return
-	        // return $content;
-	    }
-	    add_shortcode('margot-json-converter', 'json_converter_shortcode');
-	}
-	add_action('init', 'shortcode_init');
+
+
+ //   function shortcode_init()
+	// {
+	// 	function json_converter_shortcode($atts = [], $posts = null)
+	// 	{
+	// 		//normalizing attributes:
+	// 		$atts = array_change_key_case((array)$atts, CASE_LOWER);
+
+	// 		$posts = file_get_contents('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
+	// 		//NOTE: Why did I have to include the entire path name?
+	// 		$posts = json_decode($posts, true);
+	// 		$i = 0; //counter
+	// 		$limit = $atts['limit'];
+	// 		$category = $atts['category'];
+	// 		print_r("Category: " . $category . PHP_EOL);
+	// 		foreach ($posts as $post) if ($post['terms']['category'][0]['slug'] == $category) {
+	// 			print_r("post number " . ($i + 1) . PHP_EOL);
+	// 			print_r($post['title'] . PHP_EOL . $post['content']);
+	// 			if (++$i == $limit) {
+	// 				break;
+	// 			}
+	// 		}
+	//         // // do something to $content
+	//         // // always return
+	//         // return $content;
+	//     }
+	//     add_shortcode('margot-json-converter', 'json_converter_shortcode');
+	// }
+	// add_action('init', 'shortcode_init');
 
 
 
