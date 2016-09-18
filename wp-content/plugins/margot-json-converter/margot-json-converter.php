@@ -11,14 +11,18 @@
 //shorcode test
 	function shortcode_init()
 	{
-		function json_converter_shortcode($attributes = [], $posts = null)
+		function json_converter_shortcode($atts = ['testattribute' => 'hello there!'], $posts = null)
 		{
-			   $posts = file_get_contents('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
-			   //NOTE: Why did I have to include the entire path name?
-			   $posts = json_decode($posts, true);
-			   	foreach ($posts as $post) {
-			   		print_r($post['title'] . PHP_EOL . $post['content']);
-			   	}
+			//normalizing attributes:
+			$atts = array_change_key_case((array)$atts, CASE_LOWER);
+
+			$posts = file_get_contents('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
+			//NOTE: Why did I have to include the entire path name?
+			print_r($atts['testattribute'] . PHP_EOL);
+			$posts = json_decode($posts, true);
+			foreach ($posts as $post) {
+			   	print_r($post['title'] . PHP_EOL . $post['content']);
+			   }
 	        // // do something to $content
 	 
 	        // // always return
