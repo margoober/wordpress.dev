@@ -11,22 +11,25 @@
 //shorcode test
 	function shortcode_init()
 	{
-		function json_converter_shortcode($atts = ['testattribute' => 'hello there!'], $posts = null)
+		function json_converter_shortcode($atts = [], $posts = null)
 		{
 			//normalizing attributes:
 			$atts = array_change_key_case((array)$atts, CASE_LOWER);
 
 			$posts = file_get_contents('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
 			//NOTE: Why did I have to include the entire path name?
-			print_r($atts['testattribute'] . PHP_EOL);
 			$posts = json_decode($posts, true);
+			$i = 0; //counter
+			$limit = $atts['limit'];
 			foreach ($posts as $post) {
-			   	print_r($post['title'] . PHP_EOL . $post['content']);
-			   }
+				print_r("post number " . ($i + 1) . PHP_EOL);
+				print_r($post['title'] . PHP_EOL . $post['content']);
+				if (++$i == $limit) {
+					break;
+				}
+			}
 	        // // do something to $content
-	 
 	        // // always return
-	        // echo "shortcode ran! ring the bells";;
 	        // return $content;
 	    }
 	    add_shortcode('margot-json-converter', 'json_converter_shortcode');
