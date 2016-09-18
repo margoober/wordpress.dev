@@ -7,41 +7,41 @@
    Author URI: http://margot.dog
    License: GPL2
    */
+
    include 'class-library.php';
+   function shortcode_init() {
+   	function json_converter_shortcode($attsArray = [], $posts = null) {
 
-   //instantiate shortcode class
-   $shortcode = new shortcode();
+   		//normalizing attributes:
+		$attsArray = array_change_key_case((array)$attsArray, CASE_LOWER);
 
+   		$jsonManipulation = new jsonManipulation;
+   		//assign attributes to object
+   		$jsonManipulation->set_endpoint('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
+		$jsonManipulation->set_limit(3);
+		$jsonManipulation->set_category('news');
 
+		//glean & stringify json from endpoint
+		$jsonString = file_get_contents($jsonManipulation->endpoint);
+		$jsonArray = json_decode($jsonString, true);
+   		print_r("shortcode ran");
+   		var_dump($jsonManipulation);
 
- //   function shortcode_init()
-	// {
-	// 	function json_converter_shortcode($atts = [], $posts = null)
-	// 	{
-	// 		//normalizing attributes:
-	// 		$atts = array_change_key_case((array)$atts, CASE_LOWER);
+   		//foreach through the posts? set counter? move this to the class?
+   		$counter = 0; //counter
+   		foreach ($jsonArray as $post) if ($post['terms']['category'][0]['slug'] == $jsonManipulation->category) {
+   			print_r("post number " . ($counter + 1) . PHP_EOL);
+   			print_r($post['title'] . PHP_EOL . $post['content']);
+   			if (++$counter == $jsonManipulation->limit) {
+					break;
+				}
+			}
+		}
 
-	// 		$posts = file_get_contents('/vagrant/sites/wordpress.dev/public/wp-content/plugins/margot-json-converter/local-json-file.php');
-	// 		//NOTE: Why did I have to include the entire path name?
-	// 		$posts = json_decode($posts, true);
-	// 		$i = 0; //counter
-	// 		$limit = $atts['limit'];
-	// 		$category = $atts['category'];
-	// 		print_r("Category: " . $category . PHP_EOL);
-	// 		foreach ($posts as $post) if ($post['terms']['category'][0]['slug'] == $category) {
-	// 			print_r("post number " . ($i + 1) . PHP_EOL);
-	// 			print_r($post['title'] . PHP_EOL . $post['content']);
-	// 			if (++$i == $limit) {
-	// 				break;
-	// 			}
-	// 		}
-	//         // // do something to $content
-	//         // // always return
-	//         // return $content;
-	//     }
-	//     add_shortcode('margot-json-converter', 'json_converter_shortcode');
-	// }
-	// add_action('init', 'shortcode_init');
+   	add_shortcode('margot-json-converter', 'json_converter_shortcode');
+   }
+   add_action('init', 'shortcode_init');
+			
 
 
 
