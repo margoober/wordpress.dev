@@ -8,6 +8,14 @@ Author URI: http://margot.dog
 */
 
 class jsonManipulation {
+
+	public function endpoint_check($attsArray) {
+		if (!array_key_exists('endpoint', $attsArray)) {
+			print_r('Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint="http://targetURL.biz" limit=3 category="news"]');
+			exit();
+		}
+	}
+
 	//methods to send parameters where they need to go
 	public function set_endpoint($new_endpoint) {
 		$this->endpoint = $new_endpoint;
@@ -35,6 +43,12 @@ class jsonManipulation {
 		return json_decode($result, true);
 	}
 
+	public function validate_target($url){
+		if (!$fp = curl_init($url)) {
+			echo "Oops! Invalid endpoint URL: " . $url;
+		}
+	}
+
 	public function category_search() {
 		if (isset($this->category)) {
 			return true;
@@ -44,6 +58,7 @@ class jsonManipulation {
 	}
 	//iterates across jsonArray to display results
 	public function iterate($jsonArray) {
+		self::validate_target($this->endpoint);
 		$counter = 0;
 		foreach ($jsonArray as $post)
 			if (isset($this->category)) {
