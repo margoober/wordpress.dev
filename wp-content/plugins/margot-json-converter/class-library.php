@@ -11,8 +11,18 @@ class jsonManipulation {
 
 	public function endpoint_check($attsArray) {
 		if (!array_key_exists('endpoint', $attsArray)) {
-			print_r('Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint="http://targetURL.biz" limit=3 category="news"]');
+			echo "<h2 class='error' Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint='http://targetURL.biz' limit=3 category='news']</h2>";
 			exit();
+		}
+	}
+
+	//check for unaccepted attributes
+	public function invalid_atts_check($attsArray) {
+		foreach ($attsArray as $att) {
+			if (array_key_exists($att, $attsArray) && ($att != 'endpoint' && ($att != 'category' && $att != 'limit'))) {
+				echo "<h2 class='error'>Oops! Looks like you've included an unsupported attribute.</h2>";
+			exit();
+			}
 		}
 	}
 
@@ -55,15 +65,25 @@ class jsonManipulation {
 		return json_decode($result, true);
 	}
 
-	//iterates across jsonArray to display results
+	public function trim_date($date){
+		$createDate = new DateTime($date);
+		$strip = $createDate->format('M d Y');
+		return $strip;
+	}
+	public function display($post) {
+		$date = self::trim_date($post['date']);
+		echo "<h2 class='title'>" . $post['title'] . "</h2>" . "<p class='author'>by " . $post['author']['name'] . " on " . $date . "</p><p class='body'>" . $post['content'] . "</p> <hr>";
+	}
+
+	//iterates across jsonArray to display appropriate posts
 	public function iterate($jsonArray) {
 		$counter = 0;
 		foreach ($jsonArray as $post) {
 			if ($this->category == 'all') {
-				echo "<p class='title'>" . $post['title'] . "</p>";
+				self::display($post);
 			} else {
 				if ($post['terms']['category'][0]['slug'] == $this->category) {
-					echo "<p class='title'>" . $post['title'] . "</p>";
+					self::display($post);
 				}
 			}
 		}
