@@ -25,12 +25,12 @@ function shortcode_init() {
    		//assign attributes to object
    		$jsonManipulation->set_endpoint($attsArray['endpoint']);
 
-		$jsonManipulation->set_limit(3);
+		$jsonManipulation->set_limit($attsArray['limit']);
 
-		$jsonManipulation->set_category('news');
+		$jsonManipulation->set_category($attsArray);
 
 		//glean json from endpoint, change to array
-		$jsonArray = $jsonManipulation->get_contents('https://mind.sh/are/wp-json/posts');
+		$jsonArray = $jsonManipulation->get_contents($attsArray['endpoint']);
 
 		//iterate across array to display results
 		$jsonManipulation->iterate($jsonArray);
