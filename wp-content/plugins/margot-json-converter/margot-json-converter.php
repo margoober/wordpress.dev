@@ -1,4 +1,5 @@
 <?php
+
    /*
    Plugin Name: Margot's JSON Converter
    Description: Pulls data from a JSON endpoint and outputs & formats the results
@@ -7,12 +8,10 @@
    Author URI: http://margot.dog
    License: GPL2
    */
-
-   include 'class-library.php';
-   function shortcode_init() {
-   	function json_converter_shortcode($attsArray = [], $posts = null) {
-
-   		//normalizing attributes:
+include 'class-library.php';
+function shortcode_init() {
+	function json_converter_shortcode($attsArray = [], $posts = null) {
+	//normalizing attributes:
 		$attsArray = array_change_key_case((array)$attsArray, CASE_LOWER);
 
    		$jsonManipulation = new jsonManipulation;
@@ -23,21 +22,14 @@
 
 		//glean & stringify json from endpoint
 		$jsonArray = $jsonManipulation->get_contents('https://mind.sh/are/wp-json/posts');
-   		//foreach through the posts? set counter? move this to the class?
-   		$counter = 0; //counter
-   		//foreach
-   		foreach ($jsonArray as $post) if ($post['terms']['category'][0]['slug'] == $jsonManipulation->category) {
-   			print_r("post number " . ($counter + 1) . PHP_EOL);
-   			print_r($post['title'] . PHP_EOL . $post['content']);
-   			if (++$counter == $jsonManipulation->limit) {
-					break;
-				}
-			}
-		}
 
-   	add_shortcode('margot-json-converter', 'json_converter_shortcode');
-   }
-   add_action('init', 'shortcode_init');
+		$jsonManipulation->iterate($jsonArray);
+		
+	}
+
+add_shortcode('margot-json-converter', 'json_converter_shortcode');
+}
+add_action('init', 'shortcode_init');
 			
 
 

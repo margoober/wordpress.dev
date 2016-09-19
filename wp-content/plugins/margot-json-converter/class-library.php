@@ -14,7 +14,7 @@ class jsonManipulation {
 	}
 	public function set_limit($new_limit) {
 		if (is_null($new_limit)) {
-			$this->limit = 15; //default!
+			$this->limit = 5; //default!
 		} else {
 			$this->limit = $new_limit;
 		}
@@ -23,21 +23,38 @@ class jsonManipulation {
 		$this->category = $new_category;
 	}
 	public function get_contents($endpoint) {
-		$ch = curl_init();
-		curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36');
-		// Disable SSL verification
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		// Will return the response, if false it print the response
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		// Set the url
-		curl_setopt($ch, CURLOPT_URL,$endpoint);
+		$curl_session = curl_init();
+		curl_setopt($curl_session,CURLOPT_USERAGENT,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) curl_sessionrome/52.0.2743.116 Safari/537.36');
+		curl_setopt($curl_session, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($curl_session, CURLOPT_RETURNTRANSFER, true);
+		// Set url
+		curl_setopt($curl_session, CURLOPT_URL,$endpoint);
 		// Execute
-		$result=curl_exec($ch);
-		// Closing
-		curl_close($ch);
-
-		// Will dump the json
+		$result=curl_exec($curl_session);
+		curl_close($curl_session);
 		return json_decode($result, true);
+	}
+
+	public function category_search() {
+		if (isset($this->category)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	//iterates across jsonArray to display results
+	public function iterate($jsonArray) {
+		$counter = 0;
+		foreach ($jsonArray as $post)
+			if (isset($this->category)) {
+				if ($post['terms']['category'][0]['slug'] == $this->category) {
+				echo "<p class='title'>" . $post['title'] . "</p>";
+			}
+
+			if (++$counter == $this->limit) {
+					break;
+			}
+		}
 	}
 }
 
