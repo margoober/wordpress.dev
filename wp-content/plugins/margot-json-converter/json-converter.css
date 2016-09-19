@@ -1,0 +1,20 @@
+.title {
+	font-family: helvetica;
+	font-size: 50px;
+	color: #231F20;
+	vertical-align: bottom;
+	text-align: left;
+}
+
+p {
+	font-family: Garamond;
+	font-size: 20px;
+	font-weight: 500;
+	color: #231F20;
+	vertical-align: bottom;
+	text-align: left;
+}
+
+.author {
+	font-style: italic;
+}

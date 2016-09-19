@@ -86,6 +86,10 @@ class jsonManipulation {
 					self::display($post);
 				}
 			}
+			$counter = $counter + 1;
+			if ($counter > $this->limit) {
+				break;
+			}
 		}
 	}
 }

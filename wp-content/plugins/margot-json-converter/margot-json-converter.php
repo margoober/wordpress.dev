@@ -1,14 +1,18 @@
-<?php
 
-   /*
-   Plugin Name: Margot's JSON Converter
+<!-- Plugin Name: Margot's JSON Converter
    Description: Pulls data from a JSON endpoint and outputs & formats the results
-   Shortcode example: [margot-json-converter endpoint="http://targetURL.biz" limit=3 category="news"]] where endpoint is required, but limit & category are not.
+   Shortcode example: [margot-json-converter endpoint="http://example_endpoint.com" limit=3 category="news"]] where endpoint is required, but limit & category are not.
    Version: 1.0
    Author: Margot McMahon
    Author URI: http://margot.dog
    License: GPL2
-   */
+ -->
+
+<style>
+<?php include 'json-converter.css'; ?>
+</style>
+
+<?php
 
 include 'class-library.php';
 
