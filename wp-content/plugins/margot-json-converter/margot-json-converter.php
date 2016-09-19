@@ -30,11 +30,9 @@ function shortcode_init() {
 		//normalizing attributes:
 		$attsArray = array_change_key_case((array)$attsArray, CASE_LOWER);
 
-   		//assign attributes to object
+   		//assigning attributes to object
    		$jsonManipulation->set_endpoint($attsArray['endpoint']);
-
 		$jsonManipulation->set_limit($attsArray['limit']);
-
 		$jsonManipulation->set_category($attsArray);
 
 		//glean json from endpoint, change to array

@@ -9,6 +9,7 @@ Author URI: http://margot.dog
 
 class jsonManipulation {
 
+	//check for endpoint
 	public function endpoint_check($attsArray) {
 		if (!array_key_exists('endpoint', $attsArray)) {
 			echo "<h2 class='error' Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint='http://targetURL.biz' limit=3 category='news']</h2>";
@@ -26,7 +27,7 @@ class jsonManipulation {
 		}
 	}
 
-	//methods to send parameters where they need to go
+	//methods to assign attributes to object
 	public function set_endpoint($new_endpoint) {
 		$this->endpoint = $new_endpoint;
 	}
@@ -45,6 +46,7 @@ class jsonManipulation {
 		}
 	}
 
+	//cURL
 	public function get_contents($endpoint) {
 		$curl_session = curl_init();
 		curl_setopt($curl_session,CURLOPT_USERAGENT,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) curl_sessionrome/52.0.2743.116 Safari/537.36');
