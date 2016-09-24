@@ -12,7 +12,7 @@ class jsonManipulation {
 	//check for endpoint
 	public function endpoint_check($attsArray) {
 		if (!array_key_exists('endpoint', $attsArray)) {
-			echo "<h2 class='error' Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint='http://targetURL.biz' limit=3 category='news']</h2>";
+			echo "<h2 class='error'> Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint='http://targetURL.biz' limit=3 category='news']</h2>";
 			exit();
 		}
 	}

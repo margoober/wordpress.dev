@@ -18,3 +18,11 @@ p {
 .author {
 	font-style: italic;
 }
+
+.error {
+	font-family: helvetica;
+	font-size: 50px;
+	color: red;
+	vertical-align: bottom;
+	text-align: left;
+}
