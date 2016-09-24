@@ -89,7 +89,7 @@ class jsonManipulation {
 				}
 			}
 			$counter = $counter + 1;
-			if ($counter > $this->limit) {
+			if ($counter = $this->limit) {
 				break;
 			}
 		}
