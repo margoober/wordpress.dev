@@ -12,14 +12,14 @@ class jsonManipulation {
 	//check for endpoint
 	public function endpoint_check($attsArray) {
 		if (!array_key_exists('endpoint', $attsArray)) {
-			echo "<h2 class='error'> Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint='http://targetURL.biz' limit=3 category='news']</h2>";
+			echo "<h2 class='error'>Oops! You must specify a JSON endpoint in this shortcode. Example: [margot-json-converter endpoint='http://targetURL.biz' limit=3 category='news']</h2>";
 			exit();
 		}
 	}
 
 	//check for unaccepted attributes
 	public function invalid_atts_check($attsArray) {
-		foreach ($attsArray as $att) {
+		foreach ($attsArray as $att => $value) {
 			if (array_key_exists($att, $attsArray) && ($att != 'endpoint' && ($att != 'category' && $att != 'limit'))) {
 				echo "<h2 class='error'>Oops! Looks like you've included an unsupported attribute.</h2>";
 			exit();
