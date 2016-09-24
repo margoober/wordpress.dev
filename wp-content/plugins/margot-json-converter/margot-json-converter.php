@@ -1,5 +1,6 @@
-
-<!-- Plugin Name: Margot's JSON Converter
+<?php
+/*
+Plugin Name: Margot's JSON Converter
    Description: Pulls data from a JSON endpoint and outputs & formats the results
    
    **** Shortcode example:
@@ -10,7 +11,8 @@
    Author: Margot McMahon
    Author URI: http://margot.dog
    License: GPL2
- -->
+*/
+?>
 
 <style>
 <?php include 'json-converter.css'; ?>
